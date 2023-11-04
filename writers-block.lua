@@ -17,16 +17,14 @@ y=20
 textbox = ""
 len = 0
 
-state = "typing"
 timer = 0
--- state can also be "backspace"
 
 function TIC()
  paper()
  if timer == 0 then
-	type()
+		type()
 	else
-	backspace()
+		backspace()
 	end
 	text()
 	cursor()
@@ -43,32 +41,34 @@ space=48
 shift=64
 function type()
 	if t > 1 then --fixes ctrl+r to run bug
-	for i=1,26 do
-	if key(shift) then alpha = caps else alpha = alphabet end
-	if keyp(i) then
-		textbox = textbox .. alpha[i]
-	end
-	if keyp(space) then
-		--roll =  math.random(10)
-		--print(roll)
-		--if roll > 8 then
-		state = "backspace"
-		timer = 200
-		backspace()
-		--else
-		--textbox = textbox .. " "
-		--end
-	end
-	end
+		for i=1,26 do
+		if key(shift) then alpha = caps else alpha = alphabet end
+			if keyp(i) then
+				textbox = textbox .. alpha[i]
+			end
+		end
+		if keyp(space) then
+			roll =  math.random()
+			if roll > 0.5 and #textbox > 8 then
+			 timer = 200
+			else
+			 textbox = textbox .. ' '
+			end
+		end
 	end
 end
 
 function backspace()
 	timer = timer - 1
 	if timer == 0 then
-textbox = ""
-end
-	--textbox = str:sub(textbox, -1)
+	--	textbox = ""
+	--end
+	--if timer % 500 then
+		textbox = textbox:sub(1, -2) -- remove last letter
+		if #textbox > 0 then
+			timer = 3
+		end
+	end
 end
 
 function cursor()
