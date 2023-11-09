@@ -57,12 +57,6 @@ shift=64
 BACKSPACE=51
 function type()
 	if t > 1 then --fixes ctrl+r to run bug
---		for i=1,26 do
---		if key(shift) then alpha = caps else alpha = alphabet end
---			if keyp(i) then
---				textbox = textbox .. alpha[i]
---			end
---		end
     c=gets()
     if c then textbox=textbox..c end
 		if c == ' ' then
