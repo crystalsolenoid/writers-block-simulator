@@ -31,6 +31,19 @@ function TIC()
 	t=t+1
 end
 
+-- from keyp doc example
+function gets()
+	A="abcdefghijklmnopqrstuvwxyz0123456789-=[]\\;'`,./ "
+	S="ABCDEFGHIJKLMNOPQRSTUVWXYZ)!@#$%^&*(_+{}|:\"~<>? "
+	for i=0,3 do
+		local c=peek(0xff88+i)
+		if c>0 and c<=#A and keyp(c,20,3) then
+			return key(64)and S:sub(c,c)or A:sub(c,c)
+		end
+	end
+	return nil
+end
+
 alphabet = {'a','b','c','d','e','f','g',
 	'h','i','j','k','l','m','n','o','p','q',
 	'r','s','t','u','v','w','x','y','z'}
@@ -42,18 +55,18 @@ shift=64
 BACKSPACE=51
 function type()
 	if t > 1 then --fixes ctrl+r to run bug
-		for i=1,26 do
-		if key(shift) then alpha = caps else alpha = alphabet end
-			if keyp(i) then
-				textbox = textbox .. alpha[i]
-			end
-		end
-		if keyp(space) then
+--		for i=1,26 do
+--		if key(shift) then alpha = caps else alpha = alphabet end
+--			if keyp(i) then
+--				textbox = textbox .. alpha[i]
+--			end
+--		end
+    c=gets()
+    if c then textbox=textbox..c end
+		if c == ' ' then
 			roll =  math.random()
 			if roll > 0.5 and #textbox > 8 then
 			 timer = 200
-			else
-			 textbox = textbox .. ' '
 			end
 		end
     if keyp(BACKSPACE) then
