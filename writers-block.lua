@@ -39,6 +39,7 @@ caps = {'A','B','C','D','E','F','G',
 	'R','S','T','U','V','W','X','Y','Z'}
 space=48
 shift=64
+BACKSPACE=51
 function type()
 	if t > 1 then --fixes ctrl+r to run bug
 		for i=1,26 do
@@ -55,7 +56,14 @@ function type()
 			 textbox = textbox .. ' '
 			end
 		end
+    if keyp(BACKSPACE) then
+      remove_one()
+    end
 	end
+end
+
+function remove_one()
+      textbox = textbox:sub(1, -2) -- remove last letter
 end
 
 function backspace()
@@ -64,7 +72,7 @@ function backspace()
 	--	textbox = ""
 	--end
 	--if timer % 500 then
-		textbox = textbox:sub(1, -2) -- remove last letter
+    remove_one()
 		if #textbox > 0 then
 			timer = 3
 		end
