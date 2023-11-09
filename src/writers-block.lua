@@ -76,16 +76,16 @@ function remove_one()
 end
 
 function backspace()
-	timer = timer - 1
-	if timer == 0 then
-	--	textbox = ""
-	--end
-	--if timer % 500 then
+	--timer = timer - 1
+  c=gets()
+  if c or timer == 0 then
     remove_one()
-		if #textbox > 0 then
-			timer = 3
-		end
-	end
+    if #textbox > 0 then
+      timer = 50
+    elseif #textbox == 0 then
+      timer = 0
+    end
+  end
 end
 
 function cursor()
