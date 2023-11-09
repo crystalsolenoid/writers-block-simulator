@@ -124,9 +124,6 @@ maxWidth = w-2*x
 cursorX = 0
 cursorY = 0
 function printWrap(str)
-  if key(LEFT) then maxWidth = maxWidth - 0.5 end -- debug
-  if key(RIGHT) then maxWidth = maxWidth + 0.5 end -- debug
-	line(x + maxWidth, 0, x + maxWidth, h, 8) -- debug
   minChar = 1
   maxChar = 1
   maxLine = 1
@@ -143,15 +140,15 @@ function printWrap(str)
       len = print(str:sub(minChar, maxChar), x, y + (j - 1) * 10)
       maxLine = j
     end
-    --if maxChar == minChar then break end
     maxChar = maxChar + 1
     minChar = maxChar
   end
-  -- correct for cursor wrap
+  -- cursor
   if len + 5 < maxWidth then
     lenX = len
     lenY = (maxLine-1) * 10
   else
+    -- cursor is on new line
     lenX = 0
     lenY = (maxLine) * 10
   end
