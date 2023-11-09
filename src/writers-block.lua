@@ -90,7 +90,7 @@ end
 
 function cursor()
 	if t % 60 > 30 then
-		print("_",x + len + 1 ,y+1)
+		print("_",x + lenX + 1 , lenY + y+1)
 	end
 end
 
@@ -121,12 +121,16 @@ end
 LEFT = 60
 RIGHT = 61
 maxWidth = w-2*x
+cursorX = 0
+cursorY = 0
 function printWrap(str)
   if key(LEFT) then maxWidth = maxWidth - 0.5 end -- debug
   if key(RIGHT) then maxWidth = maxWidth + 0.5 end -- debug
 	line(x + maxWidth, 0, x + maxWidth, h, 8) -- debug
   minChar = 1
   maxChar = 1
+  maxLine = 1
+  len = 0
   for j=1,11 do
     for i=minChar,#str do
       c = str:sub(minChar, i+1)
@@ -135,9 +139,21 @@ function printWrap(str)
       end
       maxChar = i + 1
     end
-    print(str:sub(minChar, maxChar), x, y + (j - 1) * 10)
+    if minChar < maxChar then
+      len = print(str:sub(minChar, maxChar), x, y + (j - 1) * 10)
+      maxLine = j
+    end
+    --if maxChar == minChar then break end
     maxChar = maxChar + 1
     minChar = maxChar
+  end
+  -- correct for cursor wrap
+  if len + 5 < maxWidth then
+    lenX = len
+    lenY = (maxLine-1) * 10
+  else
+    lenX = 0
+    lenY = (maxLine) * 10
   end
 end
 
