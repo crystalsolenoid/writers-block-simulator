@@ -110,9 +110,36 @@ function paper()
 end
 
 function text()
-	len = print(textbox, x, y)
+	--len = print(textbox, x, y)
+  printWrap(textbox)
 end
 
+function checkLen(str)
+  return print(str, 0, -10)
+end
+
+LEFT = 60
+RIGHT = 61
+maxWidth = w-2*x
+function printWrap(str)
+  if key(LEFT) then maxWidth = maxWidth - 0.5 end -- debug
+  if key(RIGHT) then maxWidth = maxWidth + 0.5 end -- debug
+	line(x + maxWidth, 0, x + maxWidth, h, 8) -- debug
+  minChar = 1
+  maxChar = 1
+  for j=1,11 do
+    for i=minChar,#str do
+      c = str:sub(minChar, i+1)
+      if checkLen(c) > maxWidth then
+        break
+      end
+      maxChar = i + 1
+    end
+    print(str:sub(minChar, maxChar), x, y + (j - 1) * 10)
+    maxChar = maxChar + 1
+    minChar = maxChar
+  end
+end
 
 -- <TILES>
 -- 001:eccccccccc888888caaaaaaaca888888cacccccccacc0ccccacc0ccccacc0ccc
