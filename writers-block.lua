@@ -19,6 +19,8 @@ len = 0
 
 timer = 0
 
+math.randomseed(tstamp())
+
 function TIC()
  paper()
  if timer == 0 then
